@@ -9,7 +9,6 @@ SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 class Base(DeclarativeBase):
     pass
 
-# Dependency for FastAPI
 def get_db():
     db = SessionLocal()
     try:
