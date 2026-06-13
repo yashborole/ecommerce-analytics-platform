@@ -1,5 +1,6 @@
 from app import models, schemas
 from app.database import SessionLocal
+from app.core.security import verify_password
 
 def create_user(user: schemas.UserCreate):
     try:
@@ -30,7 +31,7 @@ def login(user_name: str, password: str):
     try:
         db = SessionLocal()
         user = db.query(models.User).filter(models.User.name == user_name).first()
-        if not user:
+        if not user or not verify_password(password, user.hashed_password):  # type: ignore
             return {"error": "Invalid username or password"}
         return {"message": "Login successful", "user_id": user.id, "name": user.name}
     except Exception as e:
