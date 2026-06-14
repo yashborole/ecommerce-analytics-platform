@@ -3,7 +3,8 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from app.database import Base, DATABASE_URL
-from app.models import User 
+from app.models import User, Plant, Machine, Production, ActivityLog, Alert  # import all models
+
 
 target_metadata = Base.metadata
 from alembic import context

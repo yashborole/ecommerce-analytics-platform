@@ -21,13 +21,10 @@ def create_admin():
 
     db = SessionLocal()
     try:
-        # Check if username or email already exists
         existing_user = db.query(User).filter((User.name == username) | (User.email == email)).first()
         if existing_user:
             print("Error: A user with this username or email already exists.")
             return
-
-        # Hash password and create user
         hashed_password = get_password_hash(password)
         new_user = User(
             name=username,
