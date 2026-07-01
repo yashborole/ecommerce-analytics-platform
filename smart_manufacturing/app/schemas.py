@@ -80,3 +80,68 @@ class MachineInsight(BaseModel):
     efficiency: float
 
     model_config = {"from_attributes": True}
+
+
+# --- Job Schemas ---
+
+class JobCreate(BaseModel):
+    title: str
+    part_name: str
+    target_qty: int
+    priority: Optional[str] = "Normal"
+    machine_id: int
+    plant_id: int
+
+class JobResponse(BaseModel):
+    id: int
+    title: str
+    part_name: str
+    target_qty: int
+    priority: str
+    status: str
+    units_produced: int
+    machine_id: int
+    plant_id: int
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+class JobComplete(BaseModel):
+    units_produced: int
+
+# --- MachineLog Schemas ---
+
+class MachineLogResponse(BaseModel):
+    id: int
+    machine_id: int
+    job_id: Optional[int] = None
+    status: str
+    units_produced: int
+    note: Optional[str] = None
+    timestamp: datetime
+
+    model_config = {"from_attributes": True}
+
+# --- Machine Status Update ---
+
+class MachineStatusUpdate(BaseModel):
+    status: str  # Idle, Stopped, Down
+    note: Optional[str] = None
+
+# --- Kiosk Machine Overview ---
+
+class KioskMachineResponse(BaseModel):
+    id: int
+    name: str
+    machine_type: Optional[str] = None
+    status: str
+    current_job_id: Optional[int] = None
+    current_job_title: Optional[str] = None
+    current_job_part: Optional[str] = None
+    current_job_target: Optional[int] = None
+    current_job_produced: Optional[int] = None
+    pending_jobs: int
+
+    model_config = {"from_attributes": True}
