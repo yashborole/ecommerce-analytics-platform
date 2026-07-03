@@ -4,6 +4,7 @@ from app.db_ops import plants
 
 router = APIRouter(prefix="/plants", tags=["Plants"])
 
+
 @router.post("/", status_code=201)
 def create_plant(plant: schemas.PlantCreate):
     try:
@@ -11,8 +12,11 @@ def create_plant(plant: schemas.PlantCreate):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/")
 def get_plants():
@@ -21,8 +25,11 @@ def get_plants():
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/{plant_id}")
 def get_plant(plant_id: int):
@@ -33,8 +40,11 @@ def get_plant(plant_id: int):
         if isinstance(plant, dict) and "error" in plant:
             raise HTTPException(status_code=400, detail=plant["error"])
         return plant
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/user/{user_id}")
 def get_user_plants(user_id: int):
@@ -43,8 +53,11 @@ def get_user_plants(user_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.post("/{plant_id}/assign/{user_id}")
 def assign_plant(plant_id: int, user_id: int):
@@ -53,8 +66,11 @@ def assign_plant(plant_id: int, user_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/{plant_id}/machines")
 def get_plant_machines_insights(plant_id: int):
@@ -63,8 +79,11 @@ def get_plant_machines_insights(plant_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/machines/{machine_id}")
 def get_machine_detail(machine_id: int):
@@ -75,6 +94,7 @@ def get_machine_detail(machine_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-

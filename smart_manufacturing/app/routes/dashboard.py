@@ -12,6 +12,8 @@ def get_kpis(plant_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -23,6 +25,8 @@ def get_activity(plant_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -34,5 +38,7 @@ def get_alerts(plant_id: int):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

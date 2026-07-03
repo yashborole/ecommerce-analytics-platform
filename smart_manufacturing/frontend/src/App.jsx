@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import SelectPlant from './pages/SelectPlant';
 import Dashboard from './pages/Dashboard';
 import MachineInsight from './pages/MachineInsight';
+import MachineKiosk from './pages/MachineKiosk';
 import './App.css';
 
 const ProtectedRoute = ({ children, requirePlant = false }) => {
@@ -50,6 +51,14 @@ function App() {
                             element={
                                 <ProtectedRoute requirePlant={true}>
                                     <MachineInsight />
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route 
+                            path="/kiosk" 
+                            element={
+                                <ProtectedRoute requirePlant={true}>
+                                    <MachineKiosk />
                                 </ProtectedRoute>
                             } 
                         />
