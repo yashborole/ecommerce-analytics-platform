@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+﻿from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 DATABASE_URL = "postgresql://postgres:Yash%401432@localhost:5432/postgres"

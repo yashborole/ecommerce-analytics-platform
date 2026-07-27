@@ -4,8 +4,8 @@ from sqlalchemy import text
 
 
 def create_plant(plant: schemas.PlantCreate):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         query = text("""
             INSERT INTO plants (name, description, location) 
             VALUES (:name, :description, :location) 
@@ -20,33 +20,40 @@ def create_plant(plant: schemas.PlantCreate):
         created_plant = result.mappings().first()
         return dict(created_plant) if created_plant else None
     except Exception as e:
+        db.rollback()
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def get_plants():
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         query = text("SELECT * FROM plants")
         result = db.execute(query)
         return [dict(row) for row in result.mappings().all()]
     except Exception as e:
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def get_plant_by_id(plant_id: int):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         query = text("SELECT * FROM plants WHERE id = :plant_id")
         result = db.execute(query, {"plant_id": plant_id})
         plant = result.mappings().first()
         return dict(plant) if plant else None
     except Exception as e:
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def get_plants_for_user(user_id: int):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         query = text("""
             SELECT p.* 
             FROM plants p 
@@ -57,12 +64,13 @@ def get_plants_for_user(user_id: int):
         return [dict(row) for row in result.mappings().all()]
     except Exception as e:
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def assign_user_to_plant(user_id: int, plant_id: int):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
-
         user_check = db.execute(text("SELECT id FROM users WHERE id = :user_id"), {"user_id": user_id}).first()
         plant_check = db.execute(text("SELECT id FROM plants WHERE id = :plant_id"), {"plant_id": plant_id}).first()
 
@@ -83,12 +91,15 @@ def assign_user_to_plant(user_id: int, plant_id: int):
 
         return {"message": "User assigned to plant successfully"}
     except Exception as e:
+        db.rollback()
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def get_machine_insights(plant_id: int):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         query = text("""
             SELECT m.id, m.name, m.machine_type, m.status,
                    COALESCE(SUM(p.units_produced), 0) AS total_produced,
@@ -120,11 +131,13 @@ def get_machine_insights(plant_id: int):
         return insights
     except Exception as e:
         return {"error": str(e)}
+    finally:
+        db.close()
 
 
 def get_machine_detail(machine_id: int):
+    db = SessionLocal()
     try:
-        db = SessionLocal()
         machine_query = text("""
             SELECT m.*, p.name as plant_name 
             FROM machines m
@@ -206,3 +219,5 @@ def get_machine_detail(machine_id: int):
         }
     except Exception as e:
         return {"error": str(e)}
+    finally:
+        db.close()
