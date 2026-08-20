@@ -1,0 +1,7 @@
+{
+  "pythonVersion": "3.11",
+  "venvPath": "d:/Fast api/E-commerce-analytics",
+  "venv": "venv",
+  "include": ["d:/Fast api/E-commerce-analytics"],
+  "extraPaths": ["d:/Fast api/E-commerce-analytics"]
+}
