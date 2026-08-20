@@ -21,48 +21,125 @@ Alembic	Database migrations
 Pydantic	Data validation
 Uvicorn	ASGI server
 Git & GitHub	Version control
-📁 Project Structure
-ecommerce-analytics-platform/
-│
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   │
-│   ├── database.py
-│   │
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── user.py
-│   │   ├── product.py
-│   │   ├── order.py
-│   │   └── ...
-│   │
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   ├── user.py
-│   │   ├── product.py
-│   │   └── ...
-│   │
-│   ├── routes/
-│   │   ├── __init__.py
-│   │   ├── users.py
-│   │   ├── products.py
-│   │   ├── orders.py
-│   │   └── analytics.py
-│   │
-│   └── services/
-│       └── ...
-│
-├── alembic/
-│   ├── versions/
-│   ├── env.py
-│   └── script.py.mako
-│
-├── .env
-├── .gitignore
-├── alembic.ini
-├── requirements.txt
-└── README.md
+<h2>📁 Project Structure</h2>
+
+<table>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>app/</code></td>
+<td>Main application package</td>
+</tr>
+
+<tr>
+<td><code>app/main.py</code></td>
+<td>FastAPI application entry point</td>
+</tr>
+
+<tr>
+<td><code>app/database.py</code></td>
+<td>PostgreSQL database connection and SQLAlchemy configuration</td>
+</tr>
+
+<tr>
+<td><code>app/models/</code></td>
+<td>SQLAlchemy database models</td>
+</tr>
+
+<tr>
+<td><code>app/models/user.py</code></td>
+<td>User database model</td>
+</tr>
+
+<tr>
+<td><code>app/models/product.py</code></td>
+<td>Product database model</td>
+</tr>
+
+<tr>
+<td><code>app/models/order.py</code></td>
+<td>Order database model</td>
+</tr>
+
+<tr>
+<td><code>app/schemas/</code></td>
+<td>Pydantic schemas for request and response validation</td>
+</tr>
+
+<tr>
+<td><code>app/routes/</code></td>
+<td>FastAPI API endpoints</td>
+</tr>
+
+<tr>
+<td><code>app/routes/users.py</code></td>
+<td>User-related APIs</td>
+</tr>
+
+<tr>
+<td><code>app/routes/products.py</code></td>
+<td>Product-related APIs</td>
+</tr>
+
+<tr>
+<td><code>app/routes/orders.py</code></td>
+<td>Order-related APIs</td>
+</tr>
+
+<tr>
+<td><code>app/routes/analytics.py</code></td>
+<td>Analytics and reporting APIs</td>
+</tr>
+
+<tr>
+<td><code>app/services/</code></td>
+<td>Business logic and reusable services</td>
+</tr>
+
+<tr>
+<td><code>alembic/</code></td>
+<td>Database migration configuration</td>
+</tr>
+
+<tr>
+<td><code>alembic/versions/</code></td>
+<td>Generated database migration files</td>
+</tr>
+
+<tr>
+<td><code>alembic/env.py</code></td>
+<td>Alembic environment and SQLAlchemy metadata configuration</td>
+</tr>
+
+<tr>
+<td><code>alembic.ini</code></td>
+<td>Alembic configuration</td>
+</tr>
+
+<tr>
+<td><code>.env</code></td>
+<td>Environment variables and database credentials</td>
+</tr>
+
+<tr>
+<td><code>.gitignore</code></td>
+<td>Files excluded from Git</td>
+</tr>
+
+<tr>
+<td><code>requirements.txt</code></td>
+<td>Python project dependencies</td>
+</tr>
+
+<tr>
+<td><code>README.md</code></td>
+<td>Project documentation</td>
+</tr>
+
+</table>
 ⚙️ Setup
 1. Clone the repository
 git clone https://github.com/YOUR_USERNAME/ecommerce-analytics-platform.git
