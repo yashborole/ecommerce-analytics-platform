@@ -142,7 +142,7 @@ Git & GitHub	Version control
 </table>
 ⚙️ Setup
 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/ecommerce-analytics-platform.git
+git clone https://github.com/yashborole/ecommerce-analytics-platform.git
 cd ecommerce-analytics-platform
 2. Create virtual environment
 python -m venv venv
