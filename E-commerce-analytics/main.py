@@ -2,10 +2,7 @@ from fastapi import FastAPI
 
 from app.routers import order, customers, products
 
-app = FastAPI(
-    title="E-commerce Analytics API",
-    version="1.0.0"
-)
+app = FastAPI()
 
 app.include_router(order.router)
 app.include_router(customers.router)

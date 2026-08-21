@@ -9,6 +9,7 @@ from typing import Sequence, Union
 
 from alembic import op  # type: ignore
 import sqlalchemy as sa  # type: ignore
+from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 
 
 # revision identifiers, used by Alembic.
@@ -87,7 +88,7 @@ def upgrade() -> None:
     op.alter_column(
         "products",
         "price",
-        existing_type=sa.DOUBLE_PRECISION(precision=53),
+        existing_type=DOUBLE_PRECISION(precision=53),
         type_=sa.Numeric(10, 2),
         existing_nullable=False,
     )
@@ -139,7 +140,7 @@ def downgrade() -> None:
         "products",
         "price",
         existing_type=sa.Numeric(10, 2),
-        type_=sa.DOUBLE_PRECISION(precision=53),
+        type_=DOUBLE_PRECISION(precision=53),
         existing_nullable=False,
     )
 

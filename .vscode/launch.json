@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "E-commerce Analytics: FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app.main:app",
+                "--reload"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/E-commerce-analytics",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/E-commerce-analytics"
+            },
+            "python": "${workspaceFolder}/E-commerce-analytics/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Smart Manufacturing: FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "main:app",
+                "--reload"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/smart_manufacturing",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/smart_manufacturing"
+            },
+            "python": "${workspaceFolder}/smart_manufacturing/venv/Scripts/python.exe"
+        }
+    ]
+}

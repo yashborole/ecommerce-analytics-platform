@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = (
-    "postgresql://postgres:Yash@1432@localhost:5432/e-commerce_analytics"
+    "postgresql://postgres:Yash%401432@localhost:5432/e-commerce-analytics"
 )
 
 
