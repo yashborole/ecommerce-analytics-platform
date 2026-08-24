@@ -1,3 +1,5 @@
+from sqlalchemy import text
+from alembic.util import status
 from fastapi import HTTPException
 from datetime import datetime
 
@@ -81,3 +83,108 @@ def create_order(customer_id: int, product_id: int, quantity: int):
 
     except Exception as e:
         raise HTTPException(status_code=400,detail=str(e))
+
+
+
+def get_orders():
+    db = SessionLocal()
+    try:
+        orders = db.query(models.Order).all()
+        
+        return orders
+
+    except Exception as e:
+        return {"error": str(e)}
+
+
+def get_order(order_id: int):
+
+    db = SessionLocal()
+
+    try:
+        order_data = db.query(models.Order).filter(models.Order.id == order_id).first()
+        if not order_data:
+            return {"error": "Order not found"}
+        return order_data
+
+    except Exception as e:
+
+        return {"error": str(e)}
+    finally:
+        db.close()
+
+
+def cancel_order(order_id: int):
+
+    db = SessionLocal()
+
+    query = """
+        UPDATE orders
+        SET order_status = 'Cancelled'
+        WHERE id = :order_id
+        RETURNING id, order_id, order_status
+    """
+
+    try:
+
+        if not order_id:
+            return {
+                "error": "Order id not found"
+            }
+
+        result = db.execute(
+            text(query),
+            {
+                "order_id": order_id
+            }
+        )
+
+        order = result.fetchone()
+
+        if not order:
+            return {
+                "error": "Order not found"
+            }
+
+        db.commit()
+
+        return {
+            "message": "Order cancelled successfully",
+            "order_id": order.order_id,
+            "order_status": order.order_status
+        }
+
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
+
+
+
+def update_order_status(order_id:int, order_status : str):
+    db = SessionLocal()
+
+    query = """update orders 
+            set order_status = :order_status
+            where id = :order_id
+            RETURNING id, order_id, order_status
+            """
+
+    try:
+        if not order_id:
+            return {"error":"order id not found"}
+        
+        result = db.execute(text(query),{
+        "order_id": order_id,
+        "order_status": order_status})        
+        db.commit()
+
+        return {
+            "message":"order status update suceesfully",
+            "order_id":order_id,
+            "order_status":order_status
+        }        
+
+    except Exception as e:
+        return {"error": str(e)}

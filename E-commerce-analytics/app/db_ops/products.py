@@ -30,4 +30,7 @@ def create_product(name: str, description: str, category: str, price: float, sto
         }
 
     except Exception as e:
-            raise HTTPException(status_code=400,detail=str(e))
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        db.close()

@@ -36,3 +36,65 @@ async def create_order(customer_id: int, product_id: int, quantity: int):
 
     except Exception as e:
         raise HTTPException(status_code=400,detail=str(e))
+
+
+@router.post("/")
+async def get_orders():
+    try:
+
+        result = order.get_orders()
+
+        if "error" in result:
+            raise HTTPException(status_code=400)
+
+        return result
+
+    except Exception as e:
+        raise HTTPException(status_code=400,detail=str(e))
+
+
+@router.get("/{order_id}")
+def get_order(order_id: int):
+
+    try:
+
+        result = order.get_order(order_id=order_id)
+
+        if not result:
+            raise HTTPException(status_code=404,detail=result)
+        return result
+
+    except Exception as e:
+
+        raise HTTPException(status_code=404,detail=str(e))
+
+@router.get("/{order_id}/cancel")
+def cancel_order(order_id: int):
+
+    try:
+
+        result = order.cancel_order(order_id=order_id)
+
+        if "error" in result:
+            raise HTTPException(status_code=404,detail=result["error"])
+        return result
+
+    except Exception as e:
+
+        raise HTTPException(status_code=404,detail=str(e))
+
+
+@router.put("/update_order_status")
+def update_order_status(order_id: int, order_data: OrderStatusUpdate):
+
+    try:
+
+        result = order.update_order_status(order_id=order_id,order_status=order_data.order_status)
+
+        if "error" in result:
+            raise HTTPException(status_code=404,detail=result["error"])
+        return result
+
+    except Exception as e:
+
+        raise HTTPException(status_code=404,detail=str(e))

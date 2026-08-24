@@ -19,5 +19,7 @@ async def create_product(name : str, description:str, category: str, price: floa
 
         return result
 
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=400,detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
